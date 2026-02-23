@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇩🇪 Natürlich auf Deutsch! – Quiz Klasa 7</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1923;
+    --card: #1a2535;
+    --card2: #1e2d42;
+    --border: #2a3f5f;
+    --gold: #f7c948;
+    --gold2: #e09b10;
+    --green: #4ade80;
+    --red: #f87171;
+    --blue: #60a5fa;
+    --purple: #a78bfa;
+    --text: #e2e8f0;
+    --muted: #7a8fa6;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Nunito', sans-serif;
+    min-height: 100vh;
+    padding: 16px;
+    background-image:
+      radial-gradient(ellipse at 10% 10%, rgba(96,165,250,0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 90% 90%, rgba(167,139,250,0.06) 0%, transparent 50%);
+  }
+
+  /* ====== EKRAN START ====== */
+  #ekran-start { max-width: 700px; margin: 0 auto; }
+
+  .start-header {
+    text-align: center;
+    padding: 32px 20px 24px;
+  }
+
+  .start-header h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.6rem;
+    color: var(--gold);
+    text-shadow: 0 0 40px rgba(247,201,72,0.4);
+    margin-bottom: 6px;
+  }
+
+  .start-header p { color: var(--muted); font-size: 1rem; }
+
+  .kategorie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+    margin: 24px 0;
+  }
+
+  .kat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 16px;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    text-align: center;
+  }
+
+  .kat-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--gold);
+    box-shadow: 0 8px 24px rgba(247,201,72,0.15);
+  }
+
+  .kat-card .kat-icon { font-size: 2.2rem; margin-bottom: 8px; }
+  .kat-card .kat-name { font-weight: 800; font-size: 1rem; margin-bottom: 4px; }
+  .kat-card .kat-info { font-size: 0.8rem; color: var(--muted); }
+  .kat-card .kat-done {
+    display: inline-block;
+    background: var(--green);
+    color: #000;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 2px 10px;
+    margin-top: 6px;
+  }
+
+  .btn-start-all {
+    display: block;
+    width: 100%;
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    color: #000;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 14px;
+    padding: 16px;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.2s;
+    margin-top: 8px;
+  }
+
+  .btn-start-all:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(247,201,72,0.3);
+  }
+
+  /* ====== EKRAN GRY ====== */
+  #ekran-gra { max-width: 680px; margin: 0 auto; display: none; }
+
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    margin-bottom: 8px;
+  }
+
+  .btn-back {
+    background: rgba(122,143,166,0.15);
+    color: var(--muted);
+    border: 1px solid rgba(122,143,166,0.3);
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .score-pill {
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    color: #000;
+    font-weight: 900;
+    padding: 5px 16px;
+    border-radius: 20px;
+    font-size: 0.95rem;
+  }
+
+  .progress-wrap {
+    background: var(--border);
+    border-radius: 8px;
+    height: 8px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+
+  .progress-bar {
+    height: 100%;
+    border-radius: 8px;
+    transition: width 0.5s ease;
+    background: linear-gradient(90deg, var(--blue), var(--purple));
+  }
+
+  .kat-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(96,165,250,0.12);
+    border: 1px solid rgba(96,165,250,0.3);
+    color: var(--blue);
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    padding: 4px 14px;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .pytanie-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 22px;
+    text-align: center;
+    margin-bottom: 16px;
+    min-height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pytanie-tekst {
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+
+  .input-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  input[type="text"] {
+    flex: 1;
+    background: var(--card2);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 11px 16px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  input[type="text"]:focus { border-color: var(--gold); }
+  input[type="text"].correct { border-color: var(--green); background: rgba(74,222,128,0.08); }
+  input[type="text"].wrong   { border-color: var(--red);   background: rgba(248,113,113,0.08); }
+
+  button { font-family: 'Nunito', sans-serif; font-weight: 800; border: none; border-radius: 10px; cursor: pointer; transition: transform 0.1s; }
+  button:active { transform: scale(0.97); }
+  button:disabled { opacity: 0.4; cursor: default; transform: none; }
+
+  .btn-check {
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    color: #000;
+    padding: 11px 22px;
+    font-size: 0.95rem;
+    white-space: nowrap;
+  }
+
+  .action-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .btn-hint {
+    flex: 1;
+    background: rgba(96,165,250,0.12);
+    color: var(--blue);
+    border: 1px solid rgba(96,165,250,0.3);
+    padding: 10px;
+    font-size: 0.88rem;
+  }
+
+  .btn-skip {
+    flex: 1;
+    background: rgba(122,143,166,0.12);
+    color: var(--muted);
+    border: 1px solid rgba(122,143,166,0.3);
+    padding: 10px;
+    font-size: 0.88rem;
+  }
+
+  .btn-next {
+    display: none;
+    width: 100%;
+    background: linear-gradient(135deg, #4ade80, #22c55e);
+    color: #000;
+    padding: 13px;
+    font-size: 1rem;
+    margin-top: 4px;
+  }
+
+  .feedback {
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 800;
+    min-height: 26px;
+    margin-bottom: 6px;
+  }
+
+  .feedback.ok   { color: var(--green); }
+  .feedback.zle  { color: var(--red); }
+  .feedback.skip { color: var(--muted); }
+
+  .hint-txt {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #fbbf24;
+    min-height: 18px;
+    margin-bottom: 6px;
+  }
+
+  .historia {
+    margin-top: 14px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  /* ====== EKRAN WYNIK KATEGORII ====== */
+  #ekran-wynik-kat { max-width: 680px; margin: 0 auto; display: none; text-align: center; }
+
+  .wynik-kat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 36px 28px;
+    margin-top: 20px;
+  }
+
+  .wynik-kat-icon { font-size: 3.5rem; margin-bottom: 12px; }
+
+  .wynik-kat-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2rem;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .wynik-kat-score {
+    font-family: 'Fredoka One', cursive;
+    font-size: 4rem;
+    color: var(--text);
+    line-height: 1;
+    margin: 12px 0 4px;
+  }
+
+  .wynik-kat-max { color: var(--muted); margin-bottom: 20px; }
+
+  .pasek-wynik {
+    background: var(--border);
+    border-radius: 10px;
+    height: 14px;
+    margin: 16px 0;
+    overflow: hidden;
+  }
+
+  .pasek-wynik-fill {
+    height: 100%;
+    border-radius: 10px;
+    background: linear-gradient(90deg, var(--green), var(--gold));
+    transition: width 1s ease;
+  }
+
+  /* ====== PRZYCISK BESONDERS ====== */
+  .btn-besonders {
+    display: block;
+    width: 100%;
+    background: linear-gradient(135deg, #f7c948, #f59e0b, #f7c948);
+    background-size: 200% 200%;
+    animation: shimmer 2s ease infinite;
+    color: #000;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.3rem;
+    border: none;
+    border-radius: 16px;
+    padding: 18px;
+    cursor: pointer;
+    margin: 20px 0 12px;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 24px rgba(247,201,72,0.4);
+    transition: transform 0.1s;
+  }
+
+  .btn-besonders:hover { transform: scale(1.02); }
+
+  @keyframes shimmer {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* ====== MODAL BESONDERS ====== */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .modal-overlay.show { display: flex; }
+
+  .modal-box {
+    background: var(--card);
+    border: 2px solid var(--gold);
+    border-radius: 24px;
+    padding: 40px 32px;
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 0 60px rgba(247,201,72,0.3);
+    animation: popIn 0.3s ease;
+  }
+
+  @keyframes popIn {
+    0% { transform: scale(0.7); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  .modal-word {
+    font-family: 'Fredoka One', cursive;
+    font-size: 3.5rem;
+    color: var(--gold);
+    text-shadow: 0 0 30px rgba(247,201,72,0.5);
+    margin-bottom: 12px;
+  }
+
+  .modal-definition {
+    font-size: 1.1rem;
+    color: var(--text);
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+
+  .modal-slogan {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2rem;
+    color: var(--gold);
+    margin: 16px 0;
+    text-shadow: 0 0 20px rgba(247,201,72,0.4);
+  }
+
+  .modal-close {
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    color: #000;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 36px;
+    cursor: pointer;
+    margin-top: 8px;
+  }
+
+  .btn-nastepna-kat {
+    display: block;
+    width: 100%;
+    background: linear-gradient(135deg, var(--blue), #3b82f6);
+    color: #fff;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    font-size: 1rem;
+    border: none;
+    border-radius: 14px;
+    padding: 14px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+  .btn-menu {
+    display: block;
+    width: 100%;
+    background: rgba(122,143,166,0.15);
+    color: var(--muted);
+    border: 1px solid rgba(122,143,166,0.3);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    border-radius: 14px;
+    padding: 12px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+  /* ====== EKRAN KOŃCA CAŁOŚCI ====== */
+  #ekran-koniec { max-width: 680px; margin: 0 auto; display: none; text-align: center; padding: 20px 0; }
+
+  .koniec-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.8rem;
+    color: var(--gold);
+    text-shadow: 0 0 40px rgba(247,201,72,0.4);
+    margin-bottom: 8px;
+  }
+
+  .koniec-score {
+    font-family: 'Fredoka One', cursive;
+    font-size: 5rem;
+    color: var(--text);
+    line-height: 1;
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 20px 0;
+  }
+
+  .stat-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px;
+    text-align: center;
+  }
+
+  .stat-box .num { font-family: 'Fredoka One', cursive; font-size: 2rem; }
+  .stat-box .lbl { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+
+  @media (max-width: 480px) {
+    .start-header h1 { font-size: 2rem; }
+    .pytanie-tekst { font-size: 1.05rem; }
+    .modal-word { font-size: 2.8rem; }
+    .modal-slogan { font-size: 1.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== EKRAN START ===== -->
+<div id="ekran-start">
+  <div class="start-header">
+    <h1>🇩🇪 Natürlich auf Deutsch!</h1>
+    <p>Quiz · Klasa 7 · Wybierz kategorię lub zagraj wszystkie!</p>
+  </div>
+
+  <div class="kategorie-grid" id="kat-grid"></div>
+
+  <button class="btn-start-all" onclick="startWszystkie()">
+    ▶ Zagraj WSZYSTKIE kategorie po kolei!
+  </button>
+</div>
+
+<!-- ===== EKRAN GRY ===== -->
+<div id="ekran-gra">
+  <div class="topbar">
+    <button class="btn-back" onclick="wrocDoMenu()">← Menu</button>
+    <span id="lbl-postep" style="color:var(--muted);font-size:0.85rem;">Pytanie 1/10</span>
+    <span class="score-pill" id="lbl-punkty">⭐ 0</span>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar" id="progress-bar" style="width:0%"></div>
+  </div>
+
+  <div class="kat-badge" id="lbl-kat">📚 Kategoria</div>
+
+  <div class="pytanie-card">
+    <div class="pytanie-tekst" id="lbl-pytanie">...</div>
+  </div>
+
+  <div class="input-row">
+    <input type="text" id="odpowiedz" placeholder="Wpisz odpowiedź..." autocomplete="off" />
+    <button class="btn-check" id="btn-ok" onclick="sprawdz()">✔ Sprawdź</button>
+  </div>
+
+  <div class="action-row">
+    <button class="btn-hint" id="btn-hint" onclick="podpowiedz()">💡 Podpowiedź (−1 pkt)</button>
+    <button class="btn-skip" id="btn-skip" onclick="pomin()">⏭ Pomiń</button>
+  </div>
+
+  <div class="hint-txt" id="hint-txt"></div>
+  <div class="feedback" id="feedback"></div>
+
+  <button class="btn-next" id="btn-dalej" onclick="nastepne()">▶ Następne pytanie</button>
+
+  <div class="historia" id="historia"><strong>Ostatnie:</strong> —</div>
+</div>
+
+<!-- ===== EKRAN WYNIK KATEGORII ===== -->
+<div id="ekran-wynik-kat">
+  <div class="wynik-kat-card">
+    <div class="wynik-kat-icon" id="wk-icon">🎉</div>
+    <div class="wynik-kat-title" id="wk-title">Guten Appetit!</div>
+    <div style="color:var(--muted); margin-bottom:8px;">Twój wynik:</div>
+    <div class="wynik-kat-score" id="wk-score">0</div>
+    <div class="wynik-kat-max" id="wk-max">z 20 punktów</div>
+    <div class="pasek-wynik"><div class="pasek-wynik-fill" id="wk-bar" style="width:0%"></div></div>
+    <div style="font-size:1.1rem; font-weight:800;" id="wk-ocena"></div>
+
+    <button class="btn-besonders" onclick="pokazBesonders()">
+      ✨ BESONDERS ✨
+    </button>
+
+    <button class="btn-nastepna-kat" id="btn-nast-kat" onclick="nastepnaKategoria()">
+      ▶ Następna kategoria
+    </button>
+    <button class="btn-menu" onclick="wrocDoMenu()">↩ Wróć do menu</button>
+  </div>
+</div>
+
+<!-- ===== EKRAN KONIEC WSZYSTKIEGO ===== -->
+<div id="ekran-koniec">
+  <div style="font-size:3rem; margin-bottom:12px;">🏆</div>
+  <div class="koniec-title">Quiz ukończony!</div>
+  <div style="color:var(--muted); margin-bottom:8px;">Łączny wynik:</div>
+  <div class="koniec-score" id="k-score">0</div>
+  <div style="color:var(--muted); margin-bottom:20px;" id="k-max">z 0 punktów</div>
+
+  <div class="pasek-wynik" style="margin-bottom:16px;">
+    <div class="pasek-wynik-fill" id="k-bar" style="width:0%"></div>
+  </div>
+
+  <div style="font-size:1.3rem; font-weight:800; margin-bottom:20px;" id="k-ocena"></div>
+
+  <div class="stat-grid">
+    <div class="stat-box">
+      <div class="num" style="color:var(--green)" id="k-pop">0</div>
+      <div class="lbl">Poprawnych</div>
+    </div>
+    <div class="stat-box">
+      <div class="num" style="color:var(--red)" id="k-ble">0</div>
+      <div class="lbl">Błędnych</div>
+    </div>
+    <div class="stat-box">
+      <div class="num" style="color:var(--muted)" id="k-pom">0</div>
+      <div class="lbl">Pominiętych</div>
+    </div>
+  </div>
+
+  <button class="btn-besonders" onclick="pokazBesondersKoniec()">✨ BESONDERS ✨</button>
+
+  <button class="btn-start-all" onclick="wrocDoMenu()" style="margin-top:12px;">
+    🔄 Zagraj jeszcze raz!
+  </button>
+</div>
+
+<!-- ===== MODAL BESONDERS ===== -->
+<div class="modal-overlay" id="modal-besonders">
+  <div class="modal-box">
+    <div style="font-size:2rem; margin-bottom:8px;">⭐</div>
+    <div class="modal-word">besonders</div>
+    <div class="modal-definition">
+      <em>przysłówek</em><br><br>
+      <strong>szczególnie, wyjątkowo, zwłaszcza</strong><br><br>
+      Używamy gdy chcemy powiedzieć, że coś jest wyjątkowe lub szczególnie warte uwagi.
+      Np. <em>„Das ist besonders gut!"</em> — To jest szczególnie dobre!
+    </div>
+    <div class="modal-slogan">Kto wie — ten wie! 😏</div>
+    <button class="modal-close" onclick="zamknijModal()">Schließen ✕</button>
+  </div>
+</div>
+
+<script>
+// ============================================================
+//  BAZA PYTAŃ – Natürlich auf Deutsch! Klasa 7
+// ============================================================
+const KATEGORIE = [
+  {
+    id: "hallo",
+    icon: "👋",
+    name: "Hallo, Leute!",
+    opis: "Powitania, przedstawianie się",
+    kolor: "#60a5fa",
+    pytania: [
+      { p:"Jak po niemiecku powiedzieć 'Jak masz na imię?'", o:["wie heißt du","wie heist du"], h:"Wie... du?" },
+      { p:"Co znaczy 'Ich heiße...'?", o:["mam na imię","nazywam się"], h:"przedstawianie się" },
+      { p:"Jak powiedzieć 'Ile masz lat?'", o:["wie alt bist du"], h:"Wie alt...?" },
+      { p:"Co znaczy 'Ich bin 13 Jahre alt'?", o:["mam 13 lat"], h:"wiek" },
+      { p:"Co znaczy 'Guten Morgen'?", o:["dzień dobry","dzien dobry"], h:"poranne powitanie" },
+      { p:"Co znaczy 'Guten Tag'?", o:["dzień dobry","dzien dobry"], h:"powitanie w ciągu dnia" },
+      { p:"Co znaczy 'Gute Nacht'?", o:["dobranoc"], h:"na dobranoc" },
+      { p:"Co znaczy 'Tschüss'?", o:["cześć","pa","do widzenia"], h:"nieformalne pożegnanie" },
+      { p:"Co znaczy 'Auf Wiedersehen'?", o:["do widzenia"], h:"formalne pożegnanie" },
+      { p:"Co znaczy 'Woher kommst du?'", o:["skąd pochodzisz","skad pochodzisz","skąd jesteś"], h:"pytanie o pochodzenie" },
+      { p:"Co znaczy 'Ich komme aus Polen'?", o:["pochodzę z polski","pochodze z polski","jestem z polski"], h:"skąd jesteś" },
+      { p:"Co znaczy 'Wie geht's?'", o:["jak się masz","jak sie masz","co słychać"], h:"pytanie o samopoczucie" },
+    ]
+  },
+  {
+    id: "freizeit",
+    icon: "🎮",
+    name: "Freizeit und Schule",
+    opis: "Wolny czas i szkoła",
+    kolor: "#a78bfa",
+    pytania: [
+      { p:"Co znaczy 'Ich spiele Fußball'?", o:["gram w piłkę nożną","gram w pilke nozna"], h:"sport" },
+      { p:"Co znaczy 'Ich höre Musik'?", o:["słucham muzyki","slucham muzyki"], h:"hobby" },
+      { p:"Co znaczy 'das Hobby'?", o:["hobby","zainteresowanie"], h:"co lubisz robić?" },
+      { p:"Co znaczy 'die Schule'?", o:["szkoła","szkola"], h:"miejsce nauki" },
+      { p:"Co znaczy 'das Fach'?", o:["przedmiot szkolny","przedmiot"], h:"np. matematyka" },
+      { p:"Co znaczy 'Ich lese gern'?", o:["lubię czytać","lubie czytac"], h:"gern = chętnie" },
+      { p:"Co znaczy 'Ich lerne Deutsch'?", o:["uczę się niemieckiego","ucze sie niemieckiego"], h:"nauka języka" },
+      { p:"Co znaczy 'die Hausaufgaben'?", o:["zadanie domowe","zadania domowe"], h:"po szkole trzeba je robić" },
+      { p:"Co znaczy 'der Computer'?", o:["komputer"], h:"urządzenie elektroniczne" },
+      { p:"Co znaczy 'das Wochenende'?", o:["weekend","koniec tygodnia"], h:"sobota i niedziela" },
+      { p:"Co znaczy 'Ich surfe im Internet'?", o:["surfuję po internecie","przeglądam internet"], h:"online" },
+      { p:"Co znaczy 'spielen'?", o:["grać","bawić się","bawic sie"], h:"gra/zabawa" },
+    ]
+  },
+  {
+    id: "familie",
+    icon: "👨‍👩‍👧",
+    name: "Familie und Alltag",
+    opis: "Rodzina i codzienność",
+    kolor: "#f472b6",
+    pytania: [
+      { p:"Co znaczy 'die Mutter'?", o:["mama","matka"], h:"rodzina" },
+      { p:"Co znaczy 'der Vater'?", o:["tata","ojciec"], h:"rodzina" },
+      { p:"Co znaczy 'die Schwester'?", o:["siostra"], h:"rodzeństwo" },
+      { p:"Co znaczy 'der Bruder'?", o:["brat"], h:"rodzeństwo" },
+      { p:"Co znaczy 'die Großmutter'?", o:["babcia","babka"], h:"starsza pani w rodzinie" },
+      { p:"Co znaczy 'der Großvater'?", o:["dziadek"], h:"starszy pan w rodzinie" },
+      { p:"Co znaczy 'Ich wohne in...'?", o:["mieszkam w"], h:"miejsce zamieszkania" },
+      { p:"Co znaczy 'das Haus'?", o:["dom"], h:"budynek mieszkalny" },
+      { p:"Co znaczy 'die Wohnung'?", o:["mieszkanie"], h:"część budynku" },
+      { p:"Co znaczy 'Ich stehe um 7 Uhr auf'?", o:["wstaję o 7","wstaje o 7"], h:"czynność rano" },
+      { p:"Co znaczy 'frühstücken'?", o:["jeść śniadanie","jesc sniadanie"], h:"pierwszy posiłek dnia" },
+      { p:"Co znaczy 'schlafen'?", o:["spać","spac"], h:"nocna czynność" },
+    ]
+  },
+  {
+    id: "appetit",
+    icon: "🍽️",
+    name: "Guten Appetit!",
+    opis: "Jedzenie, restauracja, menu",
+    kolor: "#fb923c",
+    pytania: [
+      { p:"Co znaczy 'Ich bin hungrig'?", o:["jestem głodny","jestem glodny","jestem głodna"], h:"chcę coś zjeść!" },
+      { p:"Co znaczy 'Ich bin satt'?", o:["jestem najedzony","jestem najedzona","jestem syty"], h:"już dziękuję, nie chcę więcej" },
+      { p:"Co znaczy 'Ich hätte gern...'?", o:["poproszę","chciałbym","chciałabym"], h:"zamawianie w restauracji" },
+      { p:"Co znaczy 'die Speisekarte'?", o:["karta menu","menu","jadłospis"], h:"lista dań w restauracji" },
+      { p:"Co znaczy 'Was möchten Sie?'", o:["czego sobie życzy pan/pani","co pan/pani zamawia"], h:"kelner pyta o zamówienie" },
+      { p:"Co znaczy 'Ich möchte Wasser bestellen'?", o:["chciałbym zamówić wodę","chce zamowic wode"], h:"zamawianie napoju" },
+      { p:"Co znaczy 'das Frühstück'?", o:["śniadanie","sniadanie"], h:"pierwszy posiłek" },
+      { p:"Co znaczy 'das Mittagessen'?", o:["obiad"], h:"drugi posiłek" },
+      { p:"Co znaczy 'das Abendessen'?", o:["kolacja"], h:"ostatni posiłek dnia" },
+      { p:"Co znaczy 'Guten Appetit!'?", o:["smacznego"], h:"mówisz to przed jedzeniem" },
+      { p:"Co znaczy 'die Rechnung bitte'?", o:["poproszę rachunek","rachunek proszę"], h:"koniec jedzenia w restauracji" },
+      { p:"Co znaczy 'lecker'?", o:["pyszny","smaczny"], h:"mówisz gdy coś jest dobre" },
+    ]
+  },
+  {
+    id: "spass",
+    icon: "🎉",
+    name: "Viel Spaß!",
+    opis: "Zabawy, sport, czas wolny",
+    kolor: "#4ade80",
+    pytania: [
+      { p:"Co znaczy 'Viel Spaß!'?", o:["dobrej zabawy","miłej zabawy","baw się dobrze"], h:"życzenie przed zabawą" },
+      { p:"Co znaczy 'das Schwimmbad'?", o:["basen","pływalnia"], h:"pływanie" },
+      { p:"Co znaczy 'Ich fahre Fahrrad'?", o:["jadę na rowerze","jeżdżę na rowerze"], h:"sport" },
+      { p:"Co znaczy 'das Kino'?", o:["kino"], h:"oglądanie filmów" },
+      { p:"Co znaczy 'Ich gehe ins Kino'?", o:["idę do kina"], h:"gdzie idziesz?" },
+      { p:"Co znaczy 'der Geburtstag'?", o:["urodziny"], h:"świętujemy raz w roku" },
+      { p:"Co znaczy 'Herzlichen Glückwunsch!'?", o:["gratulacje","serdeczne gratulacje"], h:"mówisz na urodzinach" },
+      { p:"Co znaczy 'das Konzert'?", o:["koncert"], h:"muzyka na żywo" },
+      { p:"Co znaczy 'Ich treffe mich mit Freunden'?", o:["spotykam się z przyjaciółmi","spotykam sie z przyjaciolmi"], h:"spotkanie towarzyskie" },
+      { p:"Co znaczy 'der Park'?", o:["park"], h:"zielone miejsce w mieście" },
+      { p:"Co znaczy 'Ich mache Sport'?", o:["uprawiam sport","ćwiczę"], h:"aktywność fizyczna" },
+      { p:"Co znaczy 'Es macht Spaß!'?", o:["to jest fun","to jest fajne","to sprawia radość"], h:"coś jest przyjemne" },
+    ]
+  },
+  {
+    id: "feste",
+    icon: "🎄",
+    name: "Feste und Ferien",
+    opis: "Święta i wakacje",
+    kolor: "#f87171",
+    pytania: [
+      { p:"Co znaczy 'Frohe Weihnachten!'?", o:["wesołych świąt","wesołych świąt bożego narodzenia"], h:"grudniowe życzenia" },
+      { p:"Co znaczy 'das Weihnachten'?", o:["boże narodzenie","święta bożego narodzenia"], h:"grudzień" },
+      { p:"Co znaczy 'Frohe Ostern!'?", o:["wesołych świąt wielkanocnych","wesołej wielkanocny"], h:"wiosenne życzenia" },
+      { p:"Co znaczy 'die Ferien'?", o:["wakacje","ferie"], h:"przerwa od szkoły" },
+      { p:"Co znaczy 'Ich fahre in Urlaub'?", o:["jadę na wakacje","wyjeżdżam na wakacje"], h:"wyjazd wypoczynkowy" },
+      { p:"Co znaczy 'das Geschenk'?", o:["prezent"], h:"dajesz komuś na urodziny lub święta" },
+      { p:"Co znaczy 'Guten Rutsch!'?", o:["szczęśliwego nowego roku","dobrego nowego roku"], h:"sylwester" },
+      { p:"Co znaczy 'die Tradition'?", o:["tradycja"], h:"coś co robimy co roku" },
+      { p:"Co znaczy 'das Fest'?", o:["święto","uroczystość","festyn"], h:"ważna uroczystość" },
+      { p:"Co znaczy 'feiern'?", o:["świętować","swietowac"], h:"czynność podczas urodzin" },
+      { p:"Co znaczy 'der Winter'?", o:["zima"], h:"pora roku" },
+      { p:"Co znaczy 'der Sommer'?", o:["lato"], h:"pora roku" },
+    ]
+  }
+];
+
+// ============================================================
+//  STAN GRY
+// ============================================================
+let aktualnaKat = null;
+let kolejkaKat = [];
+let indeksKat = 0;
+let pytaniaKolejka = [];
+let indeksPyt = 0;
+let punkty = 0, punktyKat = 0;
+let podpHint = false;
+let historia = [];
+let poprawnych = 0, blednych = 0, pominieto = 0;
+let trybWszystkie = false;
+let indeksKatWszystkie = 0;
+let ukonczone = {};
+
+// ============================================================
+//  BUDOWANIE MENU
+// ============================================================
+function buildMenu() {
+  const grid = document.getElementById('kat-grid');
+  grid.innerHTML = '';
+  KATEGORIE.forEach((k, i) => {
+    const done = ukonczone[k.id];
+    grid.innerHTML += `
+      <div class="kat-card" onclick="startKategoria(${i})" style="border-color: ${done ? 'var(--green)' : 'var(--border)'}">
+        <div class="kat-icon">${k.icon}</div>
+        <div class="kat-name" style="color:${k.kolor}">${k.name}</div>
+        <div class="kat-info">${k.opis}</div>
+        <div class="kat-info" style="margin-top:4px;">${k.pytania.length} pytań</div>
+        ${done ? `<div class="kat-done">✅ ${done} pkt</div>` : ''}
+      </div>`;
+  });
+}
+
+// ============================================================
+//  START
+// ============================================================
+function startKategoria(i) {
+  trybWszystkie = false;
+  _rozpocznijKat(i);
+}
+
+function startWszystkie() {
+  trybWszystkie = true;
+  indeksKatWszystkie = 0;
+  punkty = 0;
+  poprawnych = 0; blednych = 0; pominieto = 0;
+  _rozpocznijKat(0);
+}
+
+function _rozpocznijKat(i) {
+  aktualnaKat = KATEGORIE[i];
+  pytaniaKolejka = shuffle([...aktualnaKat.pytania]);
+  indeksPyt = 0;
+  punktyKat = 0;
+  podpHint = false;
+  historia = [];
+
+  ukryj('ekran-start');
+  ukryj('ekran-wynik-kat');
+  ukryj('ekran-koniec');
+  pokaz('ekran-gra');
+  pokazPytanie();
+}
+
+// ============================================================
+//  GRA
+// ============================================================
+function pokazPytanie() {
+  if (indeksPyt >= pytaniaKolejka.length) {
+    pokazWynikKat();
+    return;
+  }
+
+  const q = pytaniaKolejka[indeksPyt];
+  podpHint = false;
+
+  const prog = (indeksPyt / pytaniaKolejka.length) * 100;
+  document.getElementById('progress-bar').style.width = prog + '%';
+  document.getElementById('lbl-postep').textContent = `Pytanie ${indeksPyt+1}/${pytaniaKolejka.length}`;
+  document.getElementById('lbl-punkty').textContent = `⭐ ${trybWszystkie ? punkty : punktyKat}`;
+  document.getElementById('lbl-kat').textContent = aktualnaKat.icon + ' ' + aktualnaKat.name;
+  document.getElementById('lbl-pytanie').textContent = q.p;
+  document.getElementById('hint-txt').textContent = '';
+  document.getElementById('feedback').textContent = '';
+  document.getElementById('feedback').className = 'feedback';
+
+  const inp = document.getElementById('odpowiedz');
+  inp.value = '';
+  inp.className = '';
+  inp.disabled = false;
+  inp.focus();
+
+  setDisabled(false);
+  document.getElementById('btn-dalej').style.display = 'none';
+}
+
+function sprawdz() {
+  const q = pytaniaKolejka[indeksPyt];
+  const wpisana = document.getElementById('odpowiedz').value.trim();
+  if (!wpisana) return;
+
+  const poprawna = q.o.some(ans => normalize(wpisana) === normalize(ans));
+  const inp = document.getElementById('odpowiedz');
+  const fb = document.getElementById('feedback');
+
+  if (poprawna) {
+    const pkt = podpHint ? 1 : 2;
+    punktyKat += pkt;
+    if (trybWszystkie) punkty += pkt;
+    poprawnych++;
+    inp.className = 'correct';
+    fb.textContent = `✅ Dobrze! +${pkt} pkt`;
+    fb.className = 'feedback ok';
+    addHist('✅', q.o[0]);
+  } else {
+    blednych++;
+    inp.className = 'wrong';
+    fb.textContent = `❌ Źle! Poprawnie: ${q.o[0]}`;
+    fb.className = 'feedback zle';
+    addHist('❌', q.o[0]);
+  }
+
+  document.getElementById('lbl-punkty').textContent = `⭐ ${trybWszystkie ? punkty : punktyKat}`;
+  setDisabled(true);
+  document.getElementById('btn-dalej').style.display = 'block';
+}
+
+function podpowiedz() {
+  const q = pytaniaKolejka[indeksPyt];
+  document.getElementById('hint-txt').textContent = `💡 ${q.h}`;
+  podpHint = true;
+  document.getElementById('btn-hint').disabled = true;
+}
+
+function pomin() {
+  const q = pytaniaKolejka[indeksPyt];
+  pominieto++;
+  document.getElementById('feedback').textContent = `⏭ Pominięto. Odpowiedź: ${q.o[0]}`;
+  document.getElementById('feedback').className = 'feedback skip';
+  addHist('⏭', q.o[0]);
+  setDisabled(true);
+  document.getElementById('btn-dalej').style.display = 'block';
+}
+
+function nastepne() {
+  indeksPyt++;
+  pokazPytanie();
+}
+
+// ============================================================
+//  WYNIK KATEGORII
+// ============================================================
+function pokazWynikKat() {
+  ukryj('ekran-gra');
+  pokaz('ekran-wynik-kat');
+
+  const maxPkt = aktualnaKat.pytania.length * 2;
+  const proc = Math.round(punktyKat / maxPkt * 100);
+  ukonczone[aktualnaKat.id] = punktyKat;
+
+  document.getElementById('wk-icon').textContent = aktualnaKat.icon;
+  document.getElementById('wk-title').textContent = aktualnaKat.name;
+  document.getElementById('wk-score').textContent = punktyKat;
+  document.getElementById('wk-max').textContent = `z ${maxPkt} punktów (${proc}%)`;
+
+  setTimeout(() => {
+    document.getElementById('wk-bar').style.width = proc + '%';
+  }, 100);
+
+  let ocena;
+  if (proc >= 90)      ocena = '🏆 Znakomicie!';
+  else if (proc >= 70) ocena = '😊 Bardzo dobrze!';
+  else if (proc >= 50) ocena = '📖 Nieźle, ćwicz dalej!';
+  else                 ocena = '💪 Trzeba powtórzyć!';
+
+  document.getElementById('wk-ocena').textContent = ocena;
+
+  // Czy jest następna kategoria
+  const katIdx = KATEGORIE.findIndex(k => k.id === aktualnaKat.id);
+  const nastBtn = document.getElementById('btn-nast-kat');
+  if (trybWszystkie && katIdx < KATEGORIE.length - 1) {
+    nastBtn.style.display = 'block';
+    nastBtn.textContent = `▶ Następna: ${KATEGORIE[katIdx+1].name}`;
+  } else if (trybWszystkie && katIdx === KATEGORIE.length - 1) {
+    nastBtn.style.display = 'block';
+    nastBtn.textContent = '🏁 Zobacz wynik końcowy!';
+  } else {
+    nastBtn.style.display = 'none';
+  }
+
+  buildMenu();
+}
+
+function nastepnaKategoria() {
+  const katIdx = KATEGORIE.findIndex(k => k.id === aktualnaKat.id);
+  if (katIdx < KATEGORIE.length - 1) {
+    ukryj('ekran-wynik-kat');
+    _rozpocznijKat(katIdx + 1);
+  } else {
+    pokazKoniec();
+  }
+}
+
+// ============================================================
+//  KONIEC CAŁOŚCI
+// ============================================================
+function pokazKoniec() {
+  ukryj('ekran-wynik-kat');
+  pokaz('ekran-koniec');
+
+  const maxPkt = KATEGORIE.reduce((s, k) => s + k.pytania.length * 2, 0);
+  const proc = Math.round(punkty / maxPkt * 100);
+
+  document.getElementById('k-score').textContent = punkty;
+  document.getElementById('k-max').textContent = `z ${maxPkt} punktów (${proc}%)`;
+  document.getElementById('k-pop').textContent = poprawnych;
+  document.getElementById('k-ble').textContent = blednych;
+  document.getElementById('k-pom').textContent = pominieto;
+
+  setTimeout(() => {
+    document.getElementById('k-bar').style.width = proc + '%';
+  }, 100);
+
+  let ocena;
+  if (proc >= 90)      ocena = '🏆 Jesteś mistrzem niemieckiego!';
+  else if (proc >= 75) ocena = '😊 Bardzo dobrze! Tak trzymaj!';
+  else if (proc >= 55) ocena = '📖 Nieźle, ale warto powtórzyć!';
+  else                 ocena = '💪 Ćwicz dalej, dasz radę!';
+
+  document.getElementById('k-ocena').textContent = ocena;
+}
+
+// ============================================================
+//  BESONDERS
+// ============================================================
+function pokazBesonders() {
+  document.getElementById('modal-besonders').classList.add('show');
+}
+
+function pokazBesondersKoniec() {
+  document.getElementById('modal-besonders').classList.add('show');
+}
+
+function zamknijModal() {
+  document.getElementById('modal-besonders').classList.remove('show');
+}
+
+// ============================================================
+//  HELPERS
+// ============================================================
+function wrocDoMenu() {
+  ukryj('ekran-gra');
+  ukryj('ekran-wynik-kat');
+  ukryj('ekran-koniec');
+  pokaz('ekran-start');
+  buildMenu();
+}
+
+function pokaz(id) { document.getElementById(id).style.display = 'block'; }
+function ukryj(id) { document.getElementById(id).style.display = 'none'; }
+
+function setDisabled(d) {
+  document.getElementById('btn-ok').disabled = d;
+  document.getElementById('btn-hint').disabled = d;
+  document.getElementById('btn-skip').disabled = d;
+  document.getElementById('odpowiedz').disabled = d;
+}
+
+function normalize(s) {
+  return s.toLowerCase().trim()
+    .replace(/ą/g,'a').replace(/ę/g,'e').replace(/ó/g,'o')
+    .replace(/ś/g,'s').replace(/ł/g,'l').replace(/ż/g,'z')
+    .replace(/ź/g,'z').replace(/ć/g,'c').replace(/ń/g,'n')
+    .replace(/ü/g,'u').replace(/ö/g,'o').replace(/ä/g,'a')
+    .replace(/ß/g,'ss');
+}
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function addHist(ikona, odp) {
+  historia.push(`${ikona} ${odp}`);
+  const ostatnie = historia.slice(-4).join('  |  ');
+  document.getElementById('historia').innerHTML = `<strong>Ostatnie:</strong> ${ostatnie}`;
+}
+
+// Enter
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    if (!document.getElementById('btn-ok').disabled) sprawdz();
+    else if (document.getElementById('btn-dalej').style.display !== 'none') nastepne();
+  }
+});
+
+// Klik poza modal
+document.getElementById('modal-besonders').addEventListener('click', function(e) {
+  if (e.target === this) zamknijModal();
+});
+
+// START
+buildMenu();
+</script>
+</body>
+</html>
